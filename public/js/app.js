@@ -6,10 +6,9 @@ var socket = io();
 var now = moment();
 socket.on('connect',function(){
   console.log('connected to server');
-  socket.emit('message',{
+  socket.emit('joinRoom', {
     name: name,
-    text: 'Joined ' + room,
-    timestamp: now.valueOf('x')
+    room: room
   });
 
 });
@@ -28,6 +27,9 @@ socket.on('message',function(message){
 
 //handles submitting of new message
 var $form = jQuery('#message-form');
+var $roomName = jQuery('.room-title');
+
+$roomName.text(room);
 
 $form.on('submit', function(event){
   event.preventDefault();
